@@ -2,7 +2,7 @@
 #
 # To get started with Next.js see: https://nextjs.org/docs/getting-started
 #
-name: Deploy Next.js site to Pages
+name: Build and Test Application
 
 on:
   # Runs on pushes targeting the default branch
@@ -53,15 +53,10 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
   test:
-    stage: test
-    coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
-    dependencies:
-      - build
-    script:
-      - npm test:ci
-    artifacts:
-      when: always
-      reports:
-        junit:
-          - junit.xml
-        cobertura: coverage/cobertura-coverage.xml
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Unit Tests
+        run: npm run test:ci
+      - name: E2E Tests
+        run: npm run e2e:headless
+      
