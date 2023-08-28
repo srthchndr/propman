@@ -52,9 +52,6 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-  test:
-    runs-on: ubuntu-latest  
-    steps:
       - name: Unit Tests
         run: npm run test:ci
       - name: E2E Tests
