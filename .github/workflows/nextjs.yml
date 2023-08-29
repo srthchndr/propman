@@ -54,5 +54,5 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Unit Tests
-        run: ${{ steps.detect-package-manager.outputs.runner }} run test:ci
+        run: npm run test:ci
       
