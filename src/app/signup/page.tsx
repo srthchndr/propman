@@ -19,7 +19,6 @@ export default function SignUp() {
         await fetch('http://localhost:3000/api/signup', {method: 'POST', body: JSON.stringify(newUserDetails)})
         .then((res) => {
             console.log(res, 'Successful sign in');
-            
             router.push('/signin');
         }).catch((err) => {
             console.log(err);

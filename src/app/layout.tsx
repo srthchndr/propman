@@ -1,6 +1,6 @@
+import NextAuthProvider from '@/components/NextAuthProvider/page';
 import './globals.css'
 import type { Metadata } from 'next'
-import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>{children}</SessionProvider>
+        <NextAuthProvider>
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   )
