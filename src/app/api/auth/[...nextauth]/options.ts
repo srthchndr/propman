@@ -28,8 +28,8 @@ export const authOptions: NextAuthOptions = {
               }
               // Return null if user data could not be retrieved
               return null
-            }
+            },
         }),
     ],
-
+    session: { strategy: 'jwt'}
 }
