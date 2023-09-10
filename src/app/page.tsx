@@ -4,7 +4,7 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import Image from 'next/image'
 import React, { useEffect } from 'react';
 
-export default function App(children: React.ReactNode) {
+export default function App() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Home/>
