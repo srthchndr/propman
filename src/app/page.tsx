@@ -6,10 +6,8 @@ import React, { useEffect } from 'react';
 
 export default function App(children: React.ReactNode) {
   return (
-    <SessionProvider>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <Home/>
-      </main>
-    </SessionProvider>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <Home/>
+    </main>
   )
 }
