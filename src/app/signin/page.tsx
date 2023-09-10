@@ -1,12 +1,12 @@
 "use client";
 
 import { Path } from "@/enums/path_enums";
-import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import type { GetServerSidePropsContext, GetStaticPropsContext, InferGetServerSidePropsType } from "next";
 import { getCsrfToken, signIn } from "next-auth/react"
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function SignIn({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function SignIn() {
   const [signinDetails, setSigninDetails] = useState({
     email: '',
     password: ''
@@ -30,7 +30,6 @@ export default function SignIn({ csrfToken }: InferGetServerSidePropsType<typeof
 
   return (
     <form onSubmit={signInUser}>
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken}/>
       <label>
         Email
         <input name="email" type="text" value={signinDetails.email} onChange={handleInputchange}/>
@@ -43,12 +42,4 @@ export default function SignIn({ csrfToken }: InferGetServerSidePropsType<typeof
       <Link href={Path.SIGNUP}>Not a member yet? Sign up</Link>
     </form>
   )
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context),
-    },
-  }
 }
