@@ -11,7 +11,7 @@
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
     "test": "jest --watch",
-    "test:ci": "jest --ci --collectCoverage"
+    "test:ci": "jest --ci --collectCoverage --passWithNoTests"
   },
   "dependencies": {
     "@auth/core": "^0.13.0",
