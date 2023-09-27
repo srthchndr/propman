@@ -1,22 +1,42 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Card, CardHeader } from "@/components/ui/card";
+import { ReloadIcon } from "@radix-ui/react-icons";
+ 
+const formSchema = z.object({
+    firstName: z.string().min(3).max(50),
+    lastName: z.string().min(3).max(50),
+    email: z.string().email(),
+    password: z.string().min(3).max(50),
+    confirmPassword: z.string().min(3).max(50),
+})
 
 export default function SignUp() {
     const router = useRouter();
-    const [newUserDetails, setNewUserDetails] = useState({firstName: '', lastName: '', email: '', password: '', confirmPassword: ''});
+    let [loading, setLoading] = useState(false);
+    
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        },
+      })
 
-    const handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-        const {name, value} = event.target as HTMLInputElement;
-
-        setNewUserDetails({...newUserDetails, [name]: value})
-    }
-
-    const signupUser = async (event: any) => {
-        event.preventDefault();
-        console.log(event, 'Inside signup');
-        await fetch('http://localhost:3000/api/signup', {method: 'POST', body: JSON.stringify(newUserDetails)})
+    const signupUser = async (details: z.infer<typeof formSchema>) => {
+        setLoading(true);
+        await fetch('http://localhost:3000/api/signup', {method: 'POST', body: JSON.stringify(details)})
         .then((res) => {
             console.log(res, 'Successful sign in');
             router.push('/signin');
@@ -26,23 +46,90 @@ export default function SignUp() {
     }
 
     return (
-        <form className="flex flex-col gap-2" onSubmit={signupUser}>
-            <label htmlFor="fName" >First Name
-                <input className="text-black" type="text" id="fName" name="firstName" value={newUserDetails.firstName} onChange={handleInputChange} />
-            </label>
-            <label htmlFor="lName">Last Name
-                <input className="text-black" type="text" id="lName" name="lastName" value={newUserDetails.lastName} onChange={handleInputChange} />
-            </label>
-            <label htmlFor="email">Email
-                <input className="text-black" type="text" id="email" name="email" value={newUserDetails.email} onChange={handleInputChange} />
-            </label>
-            <label htmlFor="password">Password
-                <input className="text-black" type="password" id="password" name="password" value={newUserDetails.password} onChange={handleInputChange} />
-            </label>
-            <label htmlFor="confirmPassword">Confirm Password
-                <input className="text-black" type="password" id="confirmPassword" name="confirmPassword" value={newUserDetails.confirmPassword} onChange={handleInputChange} />
-            </label>
-            <button type="submit">Signup</button>
-        </form>
+        <div className="h-screen w-full flex justify-center align-middle">
+            <Card className="p-4 w-[350px] h-fit">
+                <CardHeader>Signup</CardHeader>
+                <Form {...form}>
+                    <form className="flex flex-col gap-2" onSubmit={form.handleSubmit(signupUser)}>
+                        <FormField
+                            control={form.control}
+                            name="firstName"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>First Name</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="steven" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="lastName"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Last Name</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="turn" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="steven.turn@company.com" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input type="password" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Confirm Password</FormLabel>
+                                <FormControl>
+                                    <Input type="password" {...field} />
+                                </FormControl>
+                                <FormDescription>
+                                    This should match with your password
+                                </FormDescription>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        {!loading 
+                        ? 
+                            <Button type="submit">Signup</Button> 
+                        : 
+                            <Button disabled type="submit">
+                                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                                Saving details
+                            </Button>}
+                    </form>
+                </Form>
+            </Card>
+        </div>
     );
 }
