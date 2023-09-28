@@ -44,7 +44,7 @@ model User {
   is_suspended    Boolean?   @default(false)
   is_deleted      Boolean?   @default(false)
   is_new_user     Boolean?   @default(true)
-  created_on      DateTime   @default(dbgenerated("CURRENT_DATE")) @db.Date
+  created_on      DateTime   @default(dbgenerated("CURRENT_TIMESTAMP")) @db.Date
   last_updated_on DateTime   @default(dbgenerated("CURRENT_DATE")) @db.Date
   accounts      Account[]
   sessions      Session[]
