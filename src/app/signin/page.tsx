@@ -66,7 +66,7 @@ export default function SignIn() {
                   <FormItem>
                     <FormLabel className="text-muted-foreground">Password</FormLabel>
                     <FormControl>
-                        <Input {...field} />
+                        <Input type="password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -88,7 +88,7 @@ export default function SignIn() {
                 : 
                   <Button disabled type="submit">
                       <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                      Saving details
+                      Signing in
                   </Button>
               }
             </div>
