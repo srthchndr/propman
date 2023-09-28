@@ -46,43 +46,45 @@ export default function SignUp() {
     }
 
     return (
-        <div className="h-screen w-full flex justify-center align-middle">
+        <div className="h-screen w-full flex justify-center items-center">
             <Card className="p-4 w-[350px] h-fit">
-                <CardHeader>Signup</CardHeader>
+                <CardHeader className="text-2xl mx-auto w-fit">Signup</CardHeader>
                 <Form {...form}>
                     <form className="flex flex-col gap-2" onSubmit={form.handleSubmit(signupUser)}>
-                        <FormField
-                            control={form.control}
-                            name="firstName"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>First Name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="steven" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="lastName"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>Last Name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="turn" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <div className="flex gap-2">
+                            <FormField
+                                control={form.control}
+                                name="firstName"
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel className="text-muted-foreground">First Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="steven" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="lastName"
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel className="text-muted-foreground">Last Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="turn" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
                         <FormField
                             control={form.control}
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel className="text-muted-foreground">Email</FormLabel>
                                 <FormControl>
                                     <Input placeholder="steven.turn@company.com" {...field} />
                                 </FormControl>
@@ -95,7 +97,7 @@ export default function SignUp() {
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel className="text-muted-foreground">Password</FormLabel>
                                 <FormControl>
                                     <Input type="password" {...field} />
                                 </FormControl>
@@ -108,7 +110,7 @@ export default function SignUp() {
                             name="confirmPassword"
                             render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>Confirm Password</FormLabel>
+                                <FormLabel className="text-muted-foreground">Confirm Password</FormLabel>
                                 <FormControl>
                                     <Input type="password" {...field} />
                                 </FormControl>
