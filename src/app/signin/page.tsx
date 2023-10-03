@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, PersonIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -41,60 +42,65 @@ export default function SignIn() {
   }
 
   return (
-    <div className="h-screen w-full flex justify-center items-center">
-      <Card className="p-4 w-[350px] h-fit">
-        <CardHeader className="text-2xl mx-auto w-fit">Signin</CardHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(signInUser)}>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-muted-foreground">Email</FormLabel>
-                    <FormControl>
-                        <Input placeholder="steven.turn@company.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-muted-foreground">Password</FormLabel>
-                    <FormControl>
-                        <Input type="password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-              )}
-            />
-            <Button variant={"link"} className="pl-0">
-              <Link href={Path.SIGNUP} className="flex items-center gap-1">
-                Not a member yet? Sign up 
-                <ArrowRightIcon  className="mr-2 h-4 w-4" /> 
-              </Link>
-            </Button>
-            <div className="w-full text-right">
-              {!loading 
-                ? 
-                  <Button type="submit">
-                    <PersonIcon className="mr-2 h-4 w-4" />
-                    Signin
-                  </Button> 
-                : 
-                  <Button disabled type="submit">
-                      <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                      Signing in
-                  </Button>
-              }
-            </div>
-          </form>
-        </Form>
-      </Card>
+    <div className="p-4">
+      <div className="absolute right-4">
+        <ModeToggle></ModeToggle>
+      </div>
+      <div className="h-screen w-full flex justify-center items-center">
+        <Card className="p-4 w-[350px] h-fit">
+          <CardHeader className="text-2xl mx-auto w-fit">Signin</CardHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(signInUser)}>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-muted-foreground">Email</FormLabel>
+                      <FormControl>
+                          <Input placeholder="steven.turn@company.com" autoFocus {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-muted-foreground">Password</FormLabel>
+                      <FormControl>
+                          <Input type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                )}
+              />
+              <Button variant={"link"} className="pl-0">
+                <Link href={Path.SIGNUP} className="flex items-center gap-1">
+                  Not a member yet? Sign up 
+                  <ArrowRightIcon  className="mr-2 h-4 w-4" /> 
+                </Link>
+              </Button>
+              <div className="w-full text-right">
+                {!loading 
+                  ? 
+                    <Button type="submit">
+                      <PersonIcon className="mr-2 h-4 w-4" />
+                      Signin
+                    </Button> 
+                  : 
+                    <Button disabled type="submit">
+                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                        Signing in
+                    </Button>
+                }
+              </div>
+            </form>
+          </Form>
+        </Card>
+      </div>
     </div>
   )
 }
