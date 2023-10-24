@@ -24,6 +24,7 @@ To run Unit tests
 ```
 npm run test
 ```
+After the tests ran, we can check the coverage of the tests in ```<root>/coverage/index.html```
 
 To run End to end tests
 ```
