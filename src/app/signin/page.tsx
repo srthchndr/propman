@@ -1,10 +1,9 @@
 "use client";
 
 import { Path } from "@/enums/path_enums";
-import type { GetServerSidePropsContext, GetStaticPropsContext, InferGetServerSidePropsType } from "next";
-import { getCsrfToken, signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form";
@@ -48,7 +47,7 @@ export default function SignIn() {
       </div>
       <div className="h-screen w-full flex justify-center items-center">
         <Card className="p-4 w-[350px] h-fit">
-          <CardHeader className="text-2xl mx-auto w-fit">Signin</CardHeader>
+          <CardHeader className="text-2xl mx-auto w-fit" data-testid='card-title'>Signin</CardHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(signInUser)}>
               <FormField
@@ -58,7 +57,7 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">Email</FormLabel>
                       <FormControl>
-                          <Input placeholder="steven.turn@company.com" autoFocus {...field} />
+                          <Input placeholder="steven.turn@company.com" autoFocus {...field} data-testid='email-input' />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -71,7 +70,7 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">Password</FormLabel>
                       <FormControl>
-                          <Input type="password" {...field} />
+                          <Input type="password" {...field} data-testid='password-input' />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -84,18 +83,18 @@ export default function SignIn() {
                 </Link>
               </Button>
               <div className="w-full text-right">
-                {!loading 
-                  ? 
-                    <Button type="submit">
-                      <PersonIcon className="mr-2 h-4 w-4" />
-                      Signin
-                    </Button> 
-                  : 
-                    <Button disabled type="submit">
-                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                        Signing in
-                    </Button>
-                }
+                <Button disabled={loading} type="submit">
+                  {loading
+                   ? 
+                   <>
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> SigningIn
+                   </>
+                   : 
+                   <>
+                    <PersonIcon className="mr-2 h-4 w-4" /> SignIn
+                   </>
+                   }
+                </Button> 
               </div>
             </form>
           </Form>

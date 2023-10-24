@@ -11,14 +11,23 @@ const config = {
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
  
-  testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  // moduleNameMapper: {
-  //   '^@/app/(.*)$': '<rootDir>/app/$1',
-    
-  //   '^@/components/(.*)$': '<rootDir>/src/components/$1',
-
-  // }
+  testEnvironment: 'jest-environment-jsdom',
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '**/*.ts*',
+    '!**/node-modules/**',
+    '!**/cypress/**',
+    '!**/prisma/**',
+    '!**/components/ui/**',
+    '!**/enums/**',
+  ],
+  coverageDirectory: '<rootDir>/coverage',
+  coverageReporters: ['html'],
+  coverageProvider: 'v8',
+  moduleNameMapper: {
+    '^@/components/(.*)$': '<rootDir>/components/$1',
+  }
 }
  
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
